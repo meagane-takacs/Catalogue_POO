@@ -137,9 +137,9 @@ function displayArticle(Article $Article)
     afficheArticle('1', $Article->Nom, $Article->Prix,$Article->Image);
 }
 
-function displayCat(Article $catalogue)
+function displayCat(Article $Article)
 {
-    afficheArticle();
+    afficheArticle('1', $Article->Nom, $Article->Prix,$Article->Image);
 }
 
 

@@ -40,10 +40,15 @@ include("functions.php");
 
 
     <?php
+    //Je creer un nouveau catalogue mais vide que je stocke dans la variable $catalogue
+    $catalogue = new Catalogue();
+    //Je fais une boucle sur mon tableua d'article dans ma BDD
     while ($donnees = $tableArticle->fetch()) {
-        displayArticle(new Article($donnees['nom'], $donnees['prix'], $donnees['img']));
+    //Je stocke ma fonction add article, dans ma variable $catalogue qui était vide au départ
+    $catalogue ->addArticle(new Article($donnees['nom'], $donnees['prix'], $donnees['img']));
     }
 
+    var_dump($catalogue);
     ?>
 
 
