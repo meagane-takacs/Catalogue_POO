@@ -142,7 +142,17 @@ function displayCat(Article $Article)
     afficheArticle('1', $Article->Nom, $Article->Prix,$Article->Image);
 }
 
+function afficheCli($idClients, $name)
+{
+ echo $idClients;
+ echo $name;
+}
 
+
+function displayCli (Client $Clients)
+{
+    afficheCli($Clients->id, $Clients->nom);
+}
 
 
 

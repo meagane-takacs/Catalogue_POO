@@ -36,18 +36,26 @@ class Catalogue
     }
 }
 
-class Clients
+// Similaire à mon article
+class Client
 {
-    // Je creer un tableau clients
-    public $Clients = [];
-
-    public function addClients($Clients)
+    public function __construct($id, $nom)
     {
-        $this->Clients[]= $Clients;
+        $this->id=$id;
+        $this->nom = $nom;
     }
+
 }
 
+//Similaire à mon catalogue
 class ListeClients
 {
+    // Je creer un tableau clients
+    public $Client = [];
+
+    public function addClient($Client)
+    {
+        $this->Client[]= $Client;
+    }
 }
 
