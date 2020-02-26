@@ -10,14 +10,15 @@ session_start();
 //    $_SESSION=$_POST;
 //}
 
-include('functions_BDD.php');
+include_once('functions_BDD.php');
 $bdd = connection();
 
-$tableArticle = $bdd->query('SELECT * FROM articles');
+$tableArticle = $bdd->query('SELECT * FROM `articles` LEFT JOIN chaussures ON articles.idArticles = chaussures.idArticle LEFT JOIN vetements ON articles.idArticles = vetements.idArticle');
 
 
 //On inclut la fonction (c'est la boite à outils)
-include("functions.php");
+include_once("functions.php");
+require_once("class.php")
 
 
 ?>
@@ -44,14 +45,19 @@ include("functions.php");
     $catalogue = new Catalogue();
     //Je fais une boucle sur mon tableua d'article dans ma BDD
     while ($donnees = $tableArticle->fetch()) {
-    //Je stocke ma fonction add article, dans ma variable $catalogue qui était vide au départ
-    $catalogue ->addArticle(new Article($donnees['nom'], $donnees['prix'], $donnees['img']));
-    //Ceci permet l'affichage html de mon catalogue.
-    displayCat(new Article($donnees['nom'],$donnees['prix'], $donnees['img']));
+        //si il existe une pointure
+        if (isset($donnees['Pointure'])) {
+            $catalogue->addArticleShoes(new Chaussure($donnees['nom'], $donnees['prix'], $donnees['img'], $donnees['Pointure']));
+            displayCat(new Article($donnees['nom'], $donnees['prix'], $donnees['img']));
+        } else if (isset($donnees['Taille'])) {
+            $catalogue->addArticleVet(new Vetements($donnees['nom'], $donnees['prix'], $donnees['img'], $donnees['Taille']));
+            displayCat(new Article($donnees['nom'], $donnees['prix'], $donnees['img']));
+        } else {
+            $catalogue->addArticle(new Article($donnees['nom'], $donnees['prix'], $donnees['img']));
+            displayCat(new Article($donnees['nom'], $donnees['prix'], $donnees['img']));
+        }
     }
-
-
-
+    //Ceci permet l'affichage html de mon catalogue.
 
 
     var_dump($catalogue);
@@ -61,9 +67,7 @@ include("functions.php");
     <input class="submit" type="submit" value="Ajoutez au panier">
 
 
-
 </form>
-
 
 
 </body>

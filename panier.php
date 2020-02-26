@@ -9,8 +9,9 @@ if(!empty($_POST))
     $_SESSION = $_POST;
 }
 
-include('functions_BDD.php');
-include('functions.php');
+include_once('functions_BDD.php');
+include_once('functions.php');
+require_once('class.php');
 
 if (!isset ($_POST['choix'])) {
 //J'affiche ceci:

@@ -1,7 +1,8 @@
 <?php
-include('functions.php');
-include('functions_BDD.php');
+include_once('functions.php');
+include_once('functions_BDD.php');
 $bdd = connection();
+require_once('class.php');
 
 $tableClients = $bdd->query('SELECT * FROM clients');
 

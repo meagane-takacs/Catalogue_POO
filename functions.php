@@ -142,18 +142,10 @@ function displayCat(Article $Article)
     afficheArticle('1', $Article->Nom, $Article->Prix,$Article->Image);
 }
 
-function afficheCli($idClients, $name)
+function displayCatSh(Article $Article)
 {
- echo $idClients;
- echo $name;
+    afficheArticle('1', $Article->Nom, $Article->Prix,$Article->Image);
 }
-
-
-function displayCli (Client $Clients)
-{
-    afficheCli($Clients->id, $Clients->nom);
-}
-
 
 
 ?>

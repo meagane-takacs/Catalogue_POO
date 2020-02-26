@@ -34,6 +34,20 @@ class Catalogue
         $this->Article[] = $Article;
 
     }
+
+    public function addArticleShoes($Article)
+    {
+        // La variable $Article que j'ai en paramètre  est égal au tableau d'objet article, et tout cela est contenu ça $this (donc objet courant
+        $this->Article[] = $Article;
+
+    }
+
+    public function addArticleVet($Article)
+    {
+        // La variable $Article que j'ai en paramètre  est égal au tableau d'objet article, et tout cela est contenu ça $this (donc objet courant
+        $this->Article[] = $Article;
+
+    }
 }
 
 // Similaire à mon article
@@ -62,15 +76,15 @@ class ListeClients
 
 class Chaussure extends Article
 {
+
     public $Pointure;
+
 
     public function __construct($name, $Prix, $Image, $Pointure)
     {
         parent::__construct($name, $Prix, $Image);
-        $this->Pointure=$Pointure;
+        $this->Pointure = $Pointure;
     }
-
-
 }
 
 class Vetements extends Article
@@ -79,8 +93,7 @@ class Vetements extends Article
 
     public function __construct($name, $Prix, $Image, $Taille)
     {
-        parent::__construct($name, $Prix, $Taille);
-        $this->Taille=$Taille;
+        parent::__construct($name, $Prix, $Image, $Taille);
+        $this->Taille = $Taille;
     }
-
 }
