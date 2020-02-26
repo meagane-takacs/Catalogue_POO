@@ -11,6 +11,6 @@ $ListeClients = new ListeClients();
 while ($donnees = $tableClients->fetch()) {
     //Je stocke ma fonction add clients, dans ma variable $catalogue qui était vide au départ
     $ListeClients->addClient(new Client($donnees['idClients'], $donnees['nom']));
-    //Ceci permet l'affichage html de mon catalogue.
+    //Ceci permet l'affichage html de ma list Client.
     displayCli(new Client($donnees['idClients'],$donnees['nom']));
 }

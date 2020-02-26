@@ -41,7 +41,7 @@ class Client
 {
     public function __construct($id, $nom)
     {
-        $this->id=$id;
+        $this->id = $id;
         $this->nom = $nom;
     }
 
@@ -55,7 +55,32 @@ class ListeClients
 
     public function addClient($Client)
     {
-        $this->Client[]= $Client;
+        $this->Client[] = $Client;
     }
 }
 
+
+class Chaussure extends Article
+{
+    public $Pointure;
+
+    public function __construct($name, $Prix, $Image, $Pointure)
+    {
+        parent::__construct($name, $Prix, $Image);
+        $this->Pointure=$Pointure;
+    }
+
+
+}
+
+class Vetements extends Article
+{
+    public $Taille;
+
+    public function __construct($name, $Prix, $Image, $Taille)
+    {
+        parent::__construct($name, $Prix, $Taille);
+        $this->Taille=$Taille;
+    }
+
+}
