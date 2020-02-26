@@ -97,3 +97,24 @@ class Vetements extends Article
         $this->Taille = $Taille;
     }
 }
+
+
+Class Panier {
+    public $panier= array();
+
+    public function addPanier($idArticle){
+        if (array_key_exists($idArticle, $this->panier)) {
+            $this->panier [$idArticle] += 1;
+        } else {
+            $this->panier [$idArticle] = 1;
+        }
+    }
+
+    public function update ($idArticle,$qte){
+        $this-> panier [$idArticle] += $qte;
+    }
+
+    public function delete($idArticle){
+        unset($this -> panier[$idArticle]);
+    }
+}
