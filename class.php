@@ -3,6 +3,7 @@
 //Création d'une classe Article ayant comme attributs : Nom - description - Prix - Image - Poids - Stock - Dispo
 class Article
 {
+    public $id;
     public $Nom;
     public $description;
     public $Prix;
@@ -13,8 +14,9 @@ class Article
 
 //Création d'une fonction displayArticle() qui admet en paramètre un objet Article
 
-    public function __construct($name, $Prix, $Image)
+    public function __construct($id, $name, $Prix, $Image)
     {
+        $this->id = $id;
         $this->Nom = $name;
         $this->Prix = $Prix;
         $this->Image = $Image;
@@ -80,9 +82,9 @@ class Chaussure extends Article
     public $Pointure;
 
 
-    public function __construct($name, $Prix, $Image, $Pointure)
+    public function __construct($id, $name, $Prix, $Image, $Pointure)
     {
-        parent::__construct($name, $Prix, $Image);
+        parent::__construct($id, $name, $Prix, $Image);
         $this->Pointure = $Pointure;
     }
 }
@@ -91,9 +93,9 @@ class Vetements extends Article
 {
     public $Taille;
 
-    public function __construct($name, $Prix, $Image, $Taille)
+    public function __construct($id, $name, $Prix, $Image, $Taille)
     {
-        parent::__construct($name, $Prix, $Image, $Taille);
+        parent::__construct($id, $name, $Prix, $Image);
         $this->Taille = $Taille;
     }
 }

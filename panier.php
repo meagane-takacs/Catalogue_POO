@@ -2,16 +2,28 @@
  C'EST LE FICHIER QUI RECUPERE LES INFOS QUE L'UTILISATEUR A RENTRE-->
 
 <?php //var_dump($_POST);
+
+include_once('functions_BDD.php');
+include_once('functions.php');
+require_once('class.php');
+
 session_start();
 
 if(!empty($_POST))
 {
     $_SESSION = $_POST;
+    var_dump($_POST);
+    $panier = new Panier();
+        foreach ($_POST['choix'] as $productId)
+        {
+            $panier->addPanier($productId);
+            $qty = $_POST['tentacles'][$productId];
+        }
+        var_dump($panier);
+
 }
 
-include_once('functions_BDD.php');
-include_once('functions.php');
-require_once('class.php');
+
 
 if (!isset ($_POST['choix'])) {
 //J'affiche ceci:
@@ -41,8 +53,9 @@ $tableArticle = $bdd->query('SELECT * FROM `articles` WHERE articles.idArticles 
         $sum = 0;
         while ($donnees = $tableArticle->fetch()) {
 
-            afficheArticlepanier($donnees['idArticles'], $donnees['nom'], $donnees['prix'], $donnees['img'], $_POST['tentacles'][$donnees['idArticles']]);
-            $sum = totalPanier($sum, $donnees['prix'], $_SESSION['tentacles'][$donnees['idArticles']]);
+//            $panier->afficheArticlepanier(new panier ($['idArticles'], $donnees['nom'], $donnees['prix'], $donnees['img'], $_POST['tentacles'][$donnees['idArticles']]));
+//            $sum = totalPanier($sum, $donnees['prix'], $_SESSION['tentacles'][$donnees['idArticles']]);
+//            displayPanier(new panier ($donnees['idArticles'], $donnees['nom'], $donnees['prix'], $donnees['img'], $_POST['tentacles'][$donnees['idArticles']]));
         }
         ?>
        <div class="TotalPanier">

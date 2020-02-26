@@ -47,14 +47,14 @@ require_once("class.php")
     while ($donnees = $tableArticle->fetch()) {
         //si il existe une pointure
         if (isset($donnees['Pointure'])) {
-            $catalogue->addArticleShoes(new Chaussure($donnees['nom'], $donnees['prix'], $donnees['img'], $donnees['Pointure']));
-            displayCat(new Article($donnees['nom'], $donnees['prix'], $donnees['img']));
+            $catalogue->addArticleShoes(new Chaussure($donnees['idArticles'], $donnees['nom'], $donnees['prix'], $donnees['img'], $donnees['Pointure']));
+            displayCat(new Article($donnees['idArticles'], $donnees['nom'], $donnees['prix'], $donnees['img']));
         } else if (isset($donnees['Taille'])) {
-            $catalogue->addArticleVet(new Vetements($donnees['nom'], $donnees['prix'], $donnees['img'], $donnees['Taille']));
-            displayCat(new Article($donnees['nom'], $donnees['prix'], $donnees['img']));
+            $catalogue->addArticleVet(new Vetements($donnees['idArticles'], $donnees['nom'], $donnees['prix'], $donnees['img'], $donnees['Taille']));
+            displayCat(new Article($donnees['idArticles'], $donnees['nom'], $donnees['prix'], $donnees['img']));
         } else {
-            $catalogue->addArticle(new Article($donnees['nom'], $donnees['prix'], $donnees['img']));
-            displayCat(new Article($donnees['nom'], $donnees['prix'], $donnees['img']));
+            $catalogue->addArticle(new Article($donnees['idArticles'], $donnees['nom'], $donnees['prix'], $donnees['img']));
+            displayCat(new Article($donnees['idArticles'], $donnees['nom'], $donnees['prix'], $donnees['img']));
         }
     }
     //Ceci permet l'affichage html de mon catalogue.

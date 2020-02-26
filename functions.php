@@ -134,17 +134,17 @@ function totalPanier($sum, $price_article, $qteArticle)
 
 function displayArticle(Article $Article)
 {
-    afficheArticle('1', $Article->Nom, $Article->Prix,$Article->Image);
+    afficheArticle($Article->id, $Article->Nom, $Article->Prix,$Article->Image);
 }
 
 function displayCat(Article $Article)
 {
-    afficheArticle('1', $Article->Nom, $Article->Prix,$Article->Image);
+    afficheArticle($Article->id, $Article->Nom, $Article->Prix,$Article->Image);
 }
 
-function displayCatSh(Article $Article)
+function displayPanier(Panier $panier)
 {
-    afficheArticle('1', $Article->Nom, $Article->Prix,$Article->Image);
+    afficheArticlePanier('1', $Article->Nom, $Article->Prix,$Article->Image);
 }
 
 
