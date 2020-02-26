@@ -24,18 +24,27 @@ class Article
 
 class Catalogue
 {
+    //Je creer un tableau d'articles
     public $Article = [];
-//Ma fonction addArticle permet de ne pas passer par le construct et par un tableau tmp qui stockera mes données
-   public function addArticle($Article){
-       // La variable $Article que j'ai en paramètre  est égal au tableau d'objet article, et tout cela est contenu ça $this (donc objet courant 
-       $this-> Article[] = $Article;
 
-   }
+//Ma fonction addArticle permet de ne pas passer par le construct et par un tableau tmp qui stockera mes données
+    public function addArticle($Article)
+    {
+        // La variable $Article que j'ai en paramètre  est égal au tableau d'objet article, et tout cela est contenu ça $this (donc objet courant
+        $this->Article[] = $Article;
+
+    }
 }
 
 class Clients
 {
+    // Je creer un tableau clients
+    public $Clients = [];
 
+    public function addClients($Clients)
+    {
+        $this->Clients[]= $Clients;
+    }
 }
 
 class ListeClients

@@ -46,7 +46,11 @@ include("functions.php");
     while ($donnees = $tableArticle->fetch()) {
     //Je stocke ma fonction add article, dans ma variable $catalogue qui était vide au départ
     $catalogue ->addArticle(new Article($donnees['nom'], $donnees['prix'], $donnees['img']));
+    //Ceci permet l'affichage html de mon catalogue.
+    displayCat(new Article($donnees['nom'],$donnees['prix'], $donnees['img']));
     }
+
+
 
     var_dump($catalogue);
     ?>
