@@ -4,7 +4,9 @@
 require ('class.php');
 function getArticles($idArticle, $bdd)
 {
+    //je stocke ma requête SQL dans la variable $article
     $article = $bdd->query('SELECT * FROM `articles` WHERE articles.idArticles IN (' . $idArticle . ')');
+    //je stocke le tableau d'article dans la variable article et je la retourne
     return $article->fetchAll(PDO::FETCH_ASSOC);
 }
 // Ma première fonction permet d'appeler chaque article de façon indépendante.

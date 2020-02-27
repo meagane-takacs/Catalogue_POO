@@ -11,7 +11,7 @@ class Article
     private $Poids;
     private $Stock;
     private $Disponible = false;
-
+    private $quantite;
 //Création d'une fonction displayArticle() qui admet en paramètre un objet Article
 
     public function __construct($id, $name, $Prix, $Image)
@@ -32,116 +32,92 @@ class Article
         $this->id = $id;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getNom()
     {
         return $this->Nom;
     }
 
-    /**
-     * @param mixed $Nom
-     */
     public function setNom($Nom)
     {
         $this->Nom = $Nom;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getDescription()
     {
         return $this->description;
     }
 
-    /**
-     * @param mixed $description
-     */
+
     public function setDescription($description)
     {
         $this->description = $description;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getPrix()
     {
         return $this->Prix;
     }
 
-    /**
-     * @param mixed $Prix
-     */
+
     public function setPrix($Prix)
     {
         $this->Prix = $Prix;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getImage()
     {
         return $this->Image;
     }
 
-    /**
-     * @param mixed $Image
-     */
     public function setImage($Image)
     {
         $this->Image = $Image;
     }
 
-    /**
-     * @return mixed
-     */
     public function getPoids()
     {
         return $this->Poids;
     }
 
-    /**
-     * @param mixed $Poids
-     */
     public function setPoids($Poids)
     {
         $this->Poids = $Poids;
     }
 
-    /**
-     * @return mixed
-     */
     public function getStock()
     {
         return $this->Stock;
     }
 
-    /**
-     * @param mixed $Stock
-     */
+
     public function setStock($Stock)
     {
         $this->Stock = $Stock;
     }
 
-    /**
-     * @return bool
-     */
+
     public function isDisponible()
     {
         return $this->Disponible;
     }
 
-    /**
-     * @param bool $Disponible
-     */
     public function setDisponible($Disponible)
     {
         $this->Disponible = $Disponible;
+    }
+
+    public function addQuantite($quantite)
+    {
+        $this->quantite = $quantite;
+    }
+
+    public function getQuantite()
+    {
+        return $this->quantite;
     }
 
 }
@@ -226,7 +202,8 @@ class Vetements extends Article
 Class Panier {
 
     public $panier= array();
-public $article= array();
+    public $article= array();
+
     public function addPanier($idArticle, $qty){
         if (array_key_exists($idArticle, $this->panier)) {
             $this->panier [$idArticle] += $qty;
@@ -241,6 +218,22 @@ public $article= array();
 
     public function delete($idArticle){
         unset($this -> panier[$idArticle]);
+    }
+
+    public function addArticle($article)
+    {
+        $articleObject = new Article($article['idArticles'], $article['nom'], $article['prix'], $article['img']);
+        $articleObject->addQuantite($this->panier[$article['idArticles']]);
+        $this->article[] = $articleObject;
+        // La variable $Article que j'ai en paramètre  est égal au tableau d'objet article, et tout cela est contenu ça $this (donc objet courant
+    }
+
+    /**
+     * @return array
+     */
+    public function getArticle()
+    {
+        return $this->article;
     }
 
 

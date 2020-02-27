@@ -9,40 +9,34 @@ require_once('class.php');
 $bdd = connection();
 session_start();
 
-if(!empty($_POST))
-{
+if (!empty($_POST)) {
     $_SESSION = $_POST;
-    var_dump($_POST);
+//    var_dump($_POST);
     //je creer un nouveau panier dans l'instance panier
     $panier = new Panier();
     $catalogue = new Catalogue();
     //je fais une boucle sur mon tableau choix
-        foreach ($_POST['choix'] as $productId)
-        {
-            //je passe dans le tableau tentacles qui définit mes quantité, et dans chacun de mes articles avec $idproduct
-            $qty = $_POST['tentacles'][$productId];
-            $article = getArticles($productId, $bdd);
-            $articleObject = new Article()
-var_dump($article);
-            //j'apelle la fonction addPanier qui me permet d'ajouter, modifier ou supprimer les quantités d'un article/un article
-            $panier->addPanier($productId, $qty);
+    foreach ($_POST['choix'] as $productId) {
+        //je passe dans le tableau tentacles qui définit mes quantité, et dans chacun de mes articles avec $idproduct
+        $qty = $_POST['tentacles'][$productId];
+        // j'apelle ma fonction get Article qui permet de récupérer les articles dans une variable
+        $article = getArticles($productId, $bdd);
+
+        //j'apelle la fonction addPanier qui me permet d'ajouter, modifier ou supprimer les quantités d'un article/un article
+        $panier->addPanier($productId, $qty);
 //            //je modifie mon panier a chaque fois que je passe dans un article
 //            $panier->update($productId, $qty);
-        }
-var_dump($panier);
-        die();
-        displayPanier(new Panier());
-
-
-
-
-        var_dump($panier);
-
-
-    var_dump($panier);
+        $panier->addArticle($article[0]);
+    }
+    foreach ($panier->getArticle() as $article) {
+        afficheArticlePanier($article->getId(), $article->getNom(), $article->getPrix(), $article->getImage(), $article->getQuantite());
+    }
+//    afficheArticlePanier($article->$productId, 'bla', '20', 'image.png', '2');
+//    var_dump($panier);
+//    die();
+//    displayPanier(new Panier());
 
 }
-
 
 
 if (!isset ($_POST['choix'])) {
@@ -66,32 +60,23 @@ $tableArticle = getArticles($idIn, $bdd);
     <link rel="stylesheet" href="style_catalogue5.css">
 </head>
 <body>
-   <form method="POST" action="panier.php">
+<form method="POST" action="panier.php">
 
 
+    <div class="TotalPanier">
         <?php
-        $sum = 0;
-        while ($donnees = $tableArticle->fetch()) {
+        echo "Total du panier : " . $qty . " euros"; ?>
+    </div>
 
-//            $panier->afficheArticlepanier(new panier ($['idArticles'], $donnees['nom'], $donnees['prix'], $donnees['img'], $_POST['tentacles'][$donnees['idArticles']]));
-//            $sum = totalPanier($sum, $donnees['prix'], $_SESSION['tentacles'][$donnees['idArticles']]);
-//            displayPanier(new panier ($donnees['idArticles'], $donnees['nom'], $donnees['prix'], $donnees['img'], $_POST['tentacles'][$donnees['idArticles']]));
-        }
-        ?>
-       <div class="TotalPanier">
-           <?php
-           echo "Total du panier : " . $qty . " euros"; ?>
-       </div>
+    <input class="submit" type="submit" value="Mettre à jour le panier">
 
-        <input class="submit" type="submit" value="Mettre à jour le panier">
+</form>
 
-    </form>
+<form method="POST" action="commande_post.php">
+    <input class="submit" type="submit" value="Commander">
+</form>
 
-   <form  method="POST" action="commande_post.php">
-       <input class="submit" type="submit" value="Commander">
-   </form>
-
-    <?php
+<?php
 }
 
 ?>
