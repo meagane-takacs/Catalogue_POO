@@ -2,7 +2,11 @@
 
 <?php
 require ('class.php');
-
+function getArticles($idArticle, $bdd)
+{
+    $article = $bdd->query('SELECT * FROM `articles` WHERE articles.idArticles IN (' . $idArticle . ')');
+    return $article->fetchAll(PDO::FETCH_ASSOC);
+}
 // Ma première fonction permet d'appeler chaque article de façon indépendante.
 function afficheArticle1()
 {
@@ -86,7 +90,7 @@ function afficheArticle($key, $name, $price, $img)
             <label for="tentacles">Quantité:</label>
             <!-- Création d'un tableau tentacles pour stocker les données-->
             <input type="number" id="tentacles" name="tentacles[<?= $key ?>]"
-                   min="1" max="100">
+                   min="0" max="100" value="0">
         </div>
     </div>
 
@@ -134,21 +138,19 @@ function totalPanier($sum, $price_article, $qteArticle)
 
 function displayArticle(Article $Article)
 {
-    afficheArticle($Article->id, $Article->Nom, $Article->Prix,$Article->Image);
+    afficheArticle($Article->getId(), $Article->getNom(), $Article->getPrix(),$Article->getImage());
 }
 
 function displayCat(Article $Article)
 {
-    afficheArticle($Article->id, $Article->Nom, $Article->Prix,$Article->Image);
+    afficheArticle($Article->getId(), $Article->getNom(), $Article->getPrix(),$Article->getImage());
 }
 
 function displayPanier(Panier $panier)
 {
-    afficheArticlePanier('1', $Article->Nom, $Article->Prix,$Article->Image);
+    afficheArticlePanier('1', 'toto', '20','image.png','2');
 }
 
-
-?>
 
 
 

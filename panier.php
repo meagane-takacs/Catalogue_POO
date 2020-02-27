@@ -6,20 +6,40 @@
 include_once('functions_BDD.php');
 include_once('functions.php');
 require_once('class.php');
-
+$bdd = connection();
 session_start();
 
 if(!empty($_POST))
 {
     $_SESSION = $_POST;
     var_dump($_POST);
+    //je creer un nouveau panier dans l'instance panier
     $panier = new Panier();
+    $catalogue = new Catalogue();
+    //je fais une boucle sur mon tableau choix
         foreach ($_POST['choix'] as $productId)
         {
-            $panier->addPanier($productId);
+            //je passe dans le tableau tentacles qui définit mes quantité, et dans chacun de mes articles avec $idproduct
             $qty = $_POST['tentacles'][$productId];
+            $article = getArticles($productId, $bdd);
+            $articleObject = new Article()
+var_dump($article);
+            //j'apelle la fonction addPanier qui me permet d'ajouter, modifier ou supprimer les quantités d'un article/un article
+            $panier->addPanier($productId, $qty);
+//            //je modifie mon panier a chaque fois que je passe dans un article
+//            $panier->update($productId, $qty);
         }
+var_dump($panier);
+        die();
+        displayPanier(new Panier());
+
+
+
+
         var_dump($panier);
+
+
+    var_dump($panier);
 
 }
 
@@ -30,9 +50,9 @@ if (!isset ($_POST['choix'])) {
     echo "Votre panier est vide";
 } else {
 
-$bdd = connection();
+
 $idIn = implode(",", $_SESSION['choix']);
-$tableArticle = $bdd->query('SELECT * FROM `articles` WHERE articles.idArticles IN (' . $idIn . ')');
+$tableArticle = getArticles($idIn, $bdd);
 
 
 ?>
@@ -60,7 +80,7 @@ $tableArticle = $bdd->query('SELECT * FROM `articles` WHERE articles.idArticles 
         ?>
        <div class="TotalPanier">
            <?php
-           echo "Total du panier : " . $sum . " euros"; ?>
+           echo "Total du panier : " . $qty . " euros"; ?>
        </div>
 
         <input class="submit" type="submit" value="Mettre à jour le panier">

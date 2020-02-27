@@ -3,14 +3,14 @@
 //Création d'une classe Article ayant comme attributs : Nom - description - Prix - Image - Poids - Stock - Dispo
 class Article
 {
-    public $id;
-    public $Nom;
-    public $description;
-    public $Prix;
-    public $Image;
-    public $Poids;
-    public $Stock;
-    public $Disponible = false;
+    private $id;
+    private $Nom;
+    private $description;
+    private $Prix;
+    private $Image;
+    private $Poids;
+    private $Stock;
+    private $Disponible = false;
 
 //Création d'une fonction displayArticle() qui admet en paramètre un objet Article
 
@@ -20,6 +20,128 @@ class Article
         $this->Nom = $name;
         $this->Prix = $Prix;
         $this->Image = $Image;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNom()
+    {
+        return $this->Nom;
+    }
+
+    /**
+     * @param mixed $Nom
+     */
+    public function setNom($Nom)
+    {
+        $this->Nom = $Nom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrix()
+    {
+        return $this->Prix;
+    }
+
+    /**
+     * @param mixed $Prix
+     */
+    public function setPrix($Prix)
+    {
+        $this->Prix = $Prix;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->Image;
+    }
+
+    /**
+     * @param mixed $Image
+     */
+    public function setImage($Image)
+    {
+        $this->Image = $Image;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPoids()
+    {
+        return $this->Poids;
+    }
+
+    /**
+     * @param mixed $Poids
+     */
+    public function setPoids($Poids)
+    {
+        $this->Poids = $Poids;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStock()
+    {
+        return $this->Stock;
+    }
+
+    /**
+     * @param mixed $Stock
+     */
+    public function setStock($Stock)
+    {
+        $this->Stock = $Stock;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisponible()
+    {
+        return $this->Disponible;
+    }
+
+    /**
+     * @param bool $Disponible
+     */
+    public function setDisponible($Disponible)
+    {
+        $this->Disponible = $Disponible;
     }
 
 }
@@ -102,13 +224,14 @@ class Vetements extends Article
 
 
 Class Panier {
-    public $panier= array();
 
-    public function addPanier($idArticle){
+    public $panier= array();
+public $article= array();
+    public function addPanier($idArticle, $qty){
         if (array_key_exists($idArticle, $this->panier)) {
-            $this->panier [$idArticle] += 1;
+            $this->panier [$idArticle] += $qty;
         } else {
-            $this->panier [$idArticle] = 1;
+            $this->panier [$idArticle] = $qty;
         }
     }
 
@@ -119,4 +242,6 @@ Class Panier {
     public function delete($idArticle){
         unset($this -> panier[$idArticle]);
     }
+
+
 }
