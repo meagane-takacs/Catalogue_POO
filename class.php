@@ -228,9 +228,7 @@ Class Panier {
         // La variable $Article que j'ai en paramètre  est égal au tableau d'objet article, et tout cela est contenu ça $this (donc objet courant
     }
 
-    /**
-     * @return array
-     */
+
     public function getArticle()
     {
         return $this->article;

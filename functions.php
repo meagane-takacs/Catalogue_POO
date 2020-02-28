@@ -100,7 +100,7 @@ function afficheArticle($key, $name, $price, $img)
 
 }
 
-function afficheArticlePanier($key, $name, $price, $img, $Qte)
+function afficheArticlePanier($key, $name, $price, $img, $Qte=1)
 {
     ?>
     <div class="<?php echo 'container1' ?>">
@@ -117,7 +117,7 @@ function afficheArticlePanier($key, $name, $price, $img, $Qte)
         <div class="buttonQtePanier">
             <label for="tentacles">Modifier la quantité:</label>
             <input type="number" id="tentacles" name="tentacles[<?= $key ?>]"
-                   placeholder="1" min="1" max="100" value="1">
+                   min="1" max="100" value="<?php echo $Qte ?>">
         </div>
 
         <input class="delete" type="submit" value="Supprimer du panier">

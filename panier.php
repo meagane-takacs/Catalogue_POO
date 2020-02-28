@@ -9,12 +9,13 @@ require_once('class.php');
 $bdd = connection();
 session_start();
 
+//je creer un nouveau panier dans l'instance panier
+$panier = new Panier();
+$sum = 0;
 if (!isset($_POST['choix'])) {
     echo "Votre panier est vide";
 } else {
     $_SESSION = $_POST;
-//je creer un nouveau panier dans l'instance panier
-    $panier = new Panier();
     //je fais une boucle sur mon tableau choix
     foreach ($_POST['choix'] as $productId) {
         //je passe dans le tableau tentacles qui définit mes quantité, et dans chacun de mes articles avec $idproduct
@@ -28,7 +29,7 @@ if (!isset($_POST['choix'])) {
         $panier->addArticle($article[0]);
     }
     //pour chaque article du panier
-    $sum = 0;
+
     foreach ($panier->getArticle() as $article) {
         // Je calcule la somme en faisant prix * qte pour chaque article
         $sum = $sum + ($article->getPrix() * $article->getQuantite());
@@ -52,7 +53,7 @@ if (!isset($_POST['choix'])) {
     <?php
     foreach ($panier->getArticle() as $article) {
         //je prend la fonction affiche Article Panier pour récupérer toute mes données d'articles et pouvoir les afficher dans mon panier
-        afficheArticlePanier($article->getId(), $article->getNom(), $article->getPrix(), $article->getImage(), $article->getQuantite());
+        afficheArticlePanier($article->getId(), $article->getNom(), $article->getPrix(), $article->getImage(), (int)$article->getQuantite());
     }
     ?>
     <div class="TotalPanier">
@@ -62,18 +63,18 @@ if (!isset($_POST['choix'])) {
     </div>
 
 
-
     <input class="submit" type="submit" value="Mettre à jour le panier">
 </form>
 
 <?php
 
-var_dump($_SESSION);
+//var_dump($_SESSION);
 ?>
 
 <form method="POST" action="commande_post.php">
-    <?php foreach ($panier->getArticle() as $article) {?>
-    <input type="hidden" name="choix[]" class="choice" value="<?php echo $article->getId() ?>">
+    <?php foreach ($panier->getArticle() as $article) {
+        ?>
+        <input type="hidden" name="choix[]" class="choice" value="<?php echo $article->getId() ?>">
     <?php } ?>
     <input class="submit" type="submit" value="Commander">
 </form>
