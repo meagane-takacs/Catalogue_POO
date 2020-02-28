@@ -84,11 +84,22 @@
 }
 
 .msgSelec {
-    font-family: "Lucida Sans Unicode";
+    font-family: "Lucida Sans Unicode";s
 }
 
 .cmdOk {
     font-family: "Lucida Sans Unicode";
+    font-size: 50px;
+}
+
+.Merci {
+    font-family: "Lucida Sans Unicode";
     font-size: 30px;
 
+}
+.cmdOk {
+    font-family: "Lucida Sans Unicode";
+    font-size: 30px;
+    margin-top: 50px;
+    margin-left: 600px;
 }
