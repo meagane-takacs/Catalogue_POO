@@ -63,7 +63,9 @@ if (!isset($_POST['choix'])) {
     </div>
 
 
-    <input class="submit" type="submit" value="Mettre à jour le panier">
+
+
+
 </form>
 
 <?php
@@ -75,8 +77,15 @@ if (!isset($_POST['choix'])) {
     <?php foreach ($panier->getArticle() as $article) {
         ?>
         <input type="hidden" name="choix[]" class="choice" value="<?php echo $article->getId() ?>">
-    <?php } ?>
-    <input class="submit" type="submit" value="Commander">
+    <?php }
+
+    if (!isset($_POST['choix'])) {
+
+    } else { ?>
+            <input class="submit" type="submit" value="Commander"> <?php
+
+    }?>
+
 </form>
 
 <?php
