@@ -9,44 +9,32 @@ require_once('class.php');
 $bdd = connection();
 session_start();
 
-if (!empty($_POST)) {
+if (!isset($_POST['choix'])) {
+    echo "Votre panier est vide";
+} else {
     $_SESSION = $_POST;
-//    var_dump($_POST);
-    //je creer un nouveau panier dans l'instance panier
+//je creer un nouveau panier dans l'instance panier
     $panier = new Panier();
-    $catalogue = new Catalogue();
     //je fais une boucle sur mon tableau choix
     foreach ($_POST['choix'] as $productId) {
         //je passe dans le tableau tentacles qui définit mes quantité, et dans chacun de mes articles avec $idproduct
         $qty = $_POST['tentacles'][$productId];
-        // j'apelle ma fonction get Article qui permet de récupérer les articles dans une variable
+        // j'apelle ma fonction get Article qui permet de récupérer les articles dans une variable (mais on a que l'id des articles)
         $article = getArticles($productId, $bdd);
-
         //j'apelle la fonction addPanier qui me permet d'ajouter, modifier ou supprimer les quantités d'un article/un article
         $panier->addPanier($productId, $qty);
-//            //je modifie mon panier a chaque fois que je passe dans un article
-//            $panier->update($productId, $qty);
+        //l'add article reste toujours sur l'index 0 puisque c'est une boucle. On lui dit donc tu appelle la fonction add article qui permet de récupérer les données de l'article et pas seulement
+        //l'id pour ensuite pouvoir l'afficher dans mon panier
         $panier->addArticle($article[0]);
     }
+    //pour chaque article du panier
+    $sum = 0;
     foreach ($panier->getArticle() as $article) {
-        afficheArticlePanier($article->getId(), $article->getNom(), $article->getPrix(), $article->getImage(), $article->getQuantite());
+        // Je calcule la somme en faisant prix * qte pour chaque article
+        $sum = $sum + ($article->getPrix() * $article->getQuantite());
     }
-//    afficheArticlePanier($article->$productId, 'bla', '20', 'image.png', '2');
-//    var_dump($panier);
-//    die();
-//    displayPanier(new Panier());
 
 }
-
-
-if (!isset ($_POST['choix'])) {
-//J'affiche ceci:
-    echo "Votre panier est vide";
-} else {
-
-
-$idIn = implode(",", $_SESSION['choix']);
-$tableArticle = getArticles($idIn, $bdd);
 
 
 ?>
@@ -61,23 +49,37 @@ $tableArticle = getArticles($idIn, $bdd);
 </head>
 <body>
 <form method="POST" action="panier.php">
-
-
+    <?php
+    foreach ($panier->getArticle() as $article) {
+        //je prend la fonction affiche Article Panier pour récupérer toute mes données d'articles et pouvoir les afficher dans mon panier
+        afficheArticlePanier($article->getId(), $article->getNom(), $article->getPrix(), $article->getImage(), $article->getQuantite());
+    }
+    ?>
     <div class="TotalPanier">
         <?php
-        echo "Total du panier : " . $qty . " euros"; ?>
+        //J'affiche ma somme dans mon html
+        echo "Total du panier : " . $sum . " euros"; ?>
     </div>
 
-    <input class="submit" type="submit" value="Mettre à jour le panier">
 
+
+    <input class="submit" type="submit" value="Mettre à jour le panier">
 </form>
 
+<?php
+
+var_dump($_SESSION);
+?>
+
 <form method="POST" action="commande_post.php">
+    <?php foreach ($panier->getArticle() as $article) {?>
+    <input type="hidden" name="choix[]" class="choice" value="<?php echo $article->getId() ?>">
+    <?php } ?>
     <input class="submit" type="submit" value="Commander">
 </form>
 
 <?php
-}
+
 
 ?>
 

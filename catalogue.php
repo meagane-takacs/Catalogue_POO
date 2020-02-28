@@ -60,7 +60,6 @@ require_once("class.php")
     //Ceci permet l'affichage html de mon catalogue.
 
 
-    var_dump($catalogue);
     ?>
 
 
